@@ -4,11 +4,12 @@ import com.codepath.apps.restclienttemplate.TimeFormatter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by adrian18 on 6/26/17.
  */
-
+@Parcel
 public class Tweet {
 
     // list out the attributes

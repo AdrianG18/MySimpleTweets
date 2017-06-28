@@ -1,7 +1,6 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Intent;
-import android.graphics.Movie;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -17,6 +15,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -74,7 +73,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void composeMessage() {
         // create intent for the new activity
-        Intent intent = new Intent(this, ComposeActivity.class);
+        Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
         // show the activity
         startActivityForResult(intent,1);
     }
@@ -84,10 +83,10 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
         if (resultCode == RESULT_OK && requestCode == 1) {
-            // Extract name value from result extras
-            String tweet = data.getExtras().getString("tweet");
-            // Toast the name to display temporarily on screen
-            Toast.makeText(this, tweet, Toast.LENGTH_SHORT).show();
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("Tweet"));
+            tweets.add(0, tweet);
+            tweetAdapter.notifyItemInserted(0);
+            rvTweets.scrollToPosition(0);
         }
     }
 
