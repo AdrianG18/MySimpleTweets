@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -21,12 +22,16 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.codepath.apps.restclienttemplate.models.SampleModel_Table.name;
+
 public class TimelineActivity extends AppCompatActivity {
 
+    // instance variables
     private TwitterClient client;
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
     RecyclerView rvTweets;
+
 
     // Activity populates ActionBar from onCreateOptionsMenu(Menu menu)
     @Override
@@ -71,7 +76,19 @@ public class TimelineActivity extends AppCompatActivity {
         // create intent for the new activity
         Intent intent = new Intent(this, ComposeActivity.class);
         // show the activity
-        startActivity(intent);
+        startActivityForResult(intent,1);
+    }
+
+    // ActivityOne.java, time to handle the result of the sub-activity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // REQUEST_CODE is defined above
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            // Extract name value from result extras
+            String tweet = data.getExtras().getString("tweet");
+            // Toast the name to display temporarily on screen
+            Toast.makeText(this, tweet, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void populateTimeline() {
