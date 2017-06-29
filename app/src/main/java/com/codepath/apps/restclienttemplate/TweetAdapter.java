@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 import java.util.List;
 
 /**
@@ -50,7 +52,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvBody.setText(tweet.body);
         holder.tvRelativeDate.setText(tweet.relativeDate);
 
-        Glide.with(context).load(tweet.user.profileImageUrl).into(holder.ivProfileImage);
+        Glide.with(context)
+                .load(tweet.user.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+                .into(holder.ivProfileImage);
     }
 
     @Override
