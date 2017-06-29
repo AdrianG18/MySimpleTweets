@@ -3,10 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:title="Item"
+        android:icon="@drawable/bird"
+        app:showAsAction="always" />
+    <item app:showAsAction="always" />
+    <item app:showAsAction="always" />
+    <item app:showAsAction="always" />
+    <item app:showAsAction="always" />
+    <item app:showAsAction="always" />
+    <item
         android:id="@+id/miCompose"
-        android:icon="@drawable/ic_launcher"
-        app:showAsAction="ifRoom"
-        android:title="Compose">
-    </item>
+        android:icon="@drawable/compose"
+        android:title="Compose"
+        app:showAsAction="always"></item>
+    <item app:showAsAction="always" />
 
 </menu>
