@@ -17,6 +17,7 @@ public class Tweet {
     public long uid; //database ID for the tweet
     public User user;
     public String createdAt;
+    public String handle;
     public String relativeDate;
 
     // deserialize the JSON

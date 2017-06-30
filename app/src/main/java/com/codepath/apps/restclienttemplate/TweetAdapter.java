@@ -49,6 +49,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
         // populate the views according to this data
         holder.tvUsername.setText(tweet.user.name);
+        holder.tvHandle.setText("@"+tweet.user.screenName);
         holder.tvBody.setText(tweet.body);
         holder.tvRelativeDate.setText(tweet.relativeDate);
 
@@ -69,8 +70,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public ImageView ivProfileImage;
         public TextView tvUsername;
         public TextView tvBody;
+        public TextView tvHandle;
         public TextView tvRelativeDate;
-
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -79,7 +80,15 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
             tvUsername = (TextView) itemView.findViewById(R.id.tvUsername);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
+            tvHandle = (TextView) itemView.findViewById(R.id.tvHandle);
             tvRelativeDate = (TextView) itemView.findViewById(R.id.tvRelativeDate);
         }
     }
+
+    // Clean all elements of the recycler
+    public void clear() {
+        mTweets.clear();
+        notifyDataSetChanged();
+    }
+
 }
