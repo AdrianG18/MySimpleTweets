@@ -34,6 +34,8 @@ public class ComposeActivity extends AppCompatActivity {
     EditText etTweet;
     TextView tvCount;
     Button btnSend;
+    TextView tvName;
+    TextView tvScreenName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,10 @@ public class ComposeActivity extends AppCompatActivity {
         etTweet = (EditText) findViewById(R.id.etTweet);
         tvCount = (TextView) findViewById(R.id.tvCount);
         btnSend = (Button) findViewById(R.id.btnSend);
+        tvName = (TextView) findViewById(R.id.tvName);
+        tvScreenName = (TextView) findViewById(R.id.tvScreenName);
+
+      //  tvName.setText(user.name);
 
         etTweet.addTextChangedListener(mTextEditorWatcher);
     }
@@ -54,7 +60,7 @@ public class ComposeActivity extends AppCompatActivity {
         }
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            //This sets a textview to the current length
+            //This sets a text view to the current length
             int length = s.length();
             int tColor = (length>140) ? Color.RED : Color.DKGRAY;
             int bColor = (length>140 || length == 0) ? Color.parseColor("#6A00ACED") : Color.parseColor("#00aced");
