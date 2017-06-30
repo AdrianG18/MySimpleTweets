@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,48 +14,52 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toTopOf="@+id/etTweet"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/etTweet" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/imageView"
+        android:text="Name"
         app:layout_constraintRight_toLeftOf="@+id/imageView"
-        tools:layout_constraintTop_creator="1"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
         tools:layout_constraintRight_creator="1"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        tools:layout_constraintTop_creator="1" />
 
     <TextView
         android:id="@+id/tvScreenName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
+        android:layout_below="@+id/tvName"
+        android:layout_toStartOf="@+id/imageView"
+        android:text="\@handle"
+        app:layout_constraintLeft_toLeftOf="@+id/tvName"
         app:layout_constraintRight_toRightOf="@+id/tvName"
         app:layout_constraintTop_toBottomOf="@+id/tvName"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/tvName" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <EditText
         android:id="@+id/etTweet"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="62dp"
         android:layout_marginEnd="17dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="62dp"
         android:ems="10"
         android:hint="What's happening?"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:gravity="top"
+        android:inputType="textMultiLine"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
@@ -65,11 +69,28 @@
         android:id="@+id/btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00aced"
         android:onClick="onTweet"
         android:text="Tweet"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginEnd="1dp"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
         app:layout_constraintRight_toRightOf="@+id/etTweet"
-        app:layout_constraintTop_toBottomOf="@+id/etTweet" />
-</android.support.constraint.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/etTweet"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"
+        android:layout_below="@+id/etTweet"
+        android:layout_alignEnd="@+id/etTweet"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnSend"
+        android:layout_alignBottom="@+id/btnSend"
+        android:layout_toStartOf="@+id/tvScreenName"
+        android:text="140"
+        android:textColor="@android:color/darker_gray"
+        tools:layout_editor_absoluteX="246dp"
+        tools:layout_editor_absoluteY="464dp" />
+</RelativeLayout>

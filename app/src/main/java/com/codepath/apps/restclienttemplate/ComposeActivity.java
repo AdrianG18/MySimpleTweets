@@ -1,11 +1,16 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -17,6 +22,8 @@ import org.parceler.Parcels;
 
 import cz.msebera.android.httpclient.Header;
 
+import static android.graphics.Color.DKGRAY;
+import static com.codepath.apps.restclienttemplate.R.id.btnSend;
 
 
 public class ComposeActivity extends AppCompatActivity {
@@ -25,6 +32,8 @@ public class ComposeActivity extends AppCompatActivity {
     // instance variables
     TwitterClient client;
     EditText etTweet;
+    TextView tvCount;
+    Button btnSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +43,29 @@ public class ComposeActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient();
         etTweet = (EditText) findViewById(R.id.etTweet);
+        tvCount = (TextView) findViewById(R.id.tvCount);
+        btnSend = (Button) findViewById(R.id.btnSend);
+
+        etTweet.addTextChangedListener(mTextEditorWatcher);
     }
+
+    private final TextWatcher mTextEditorWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //This sets a textview to the current length
+            int length = s.length();
+            int tColor = (length>140) ? Color.RED : Color.DKGRAY;
+            int bColor = (length>140 || length == 0) ? Color.parseColor("#6A00ACED") : Color.parseColor("#00aced");
+            tvCount.setText(String.valueOf(140-length));
+            tvCount.setTextColor(tColor);
+            btnSend.setBackgroundColor(bColor);
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     public void onTweet(View v) {
 
