@@ -52,6 +52,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         holder.tvHandle.setText("@"+tweet.user.screenName);
         holder.tvBody.setText(tweet.body);
         holder.tvRelativeDate.setText(tweet.relativeDate);
+        holder.tvRetweet.setText(tweet.retweetCount);
+        holder.tvLike.setText(tweet.favouritesCount);
 
         Glide.with(context)
                 .load(tweet.user.profileImageUrl)
@@ -72,6 +74,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public TextView tvBody;
         public TextView tvHandle;
         public TextView tvRelativeDate;
+        public TextView tvRetweet;
+        public TextView tvLike;
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -82,6 +86,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvHandle = (TextView) itemView.findViewById(R.id.tvHandle);
             tvRelativeDate = (TextView) itemView.findViewById(R.id.tvRelativeDate);
+            tvRetweet = (TextView) itemView.findViewById(R.id.tvRetweet);
+            tvLike = (TextView) itemView.findViewById(R.id.tvLike);
         }
     }
 
