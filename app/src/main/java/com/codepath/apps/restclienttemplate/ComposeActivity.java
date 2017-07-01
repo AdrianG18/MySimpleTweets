@@ -42,7 +42,7 @@ public class ComposeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
 
-
+        // TODO: ButterKnife
         client = TwitterApp.getRestClient();
         etTweet = (EditText) findViewById(R.id.etTweet);
         tvCount = (TextView) findViewById(R.id.tvCount);
