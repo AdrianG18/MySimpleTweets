@@ -100,7 +100,6 @@
         android:layout_toRightOf="@+id/ibRetweet"
         android:layout_marginStart="50dp"
         android:background="@android:color/transparent"
-        android:tint="@android:color/darker_gray"
         app:srcCompat="@drawable/ic_vector_heart_stroke" />
 
     <TextView
@@ -110,6 +109,7 @@
         android:layout_above="@+id/ivLine"
         android:layout_below="@+id/tvBody"
         android:layout_toEndOf="@+id/ibReply"
+        android:layout_marginLeft="4dp"
         android:gravity="center_vertical"
         android:text="Rep" />
 
@@ -121,6 +121,7 @@
         android:text="Ret"
         android:layout_above="@+id/ivLine"
         android:layout_toEndOf="@+id/ibRetweet"
+        android:layout_marginLeft="4dp"
         android:layout_alignTop="@+id/ibRetweet" />
 
     <TextView
@@ -130,6 +131,7 @@
         android:layout_above="@+id/ivLine"
         android:layout_alignTop="@+id/ibLike"
         android:layout_toEndOf="@+id/ibLike"
+        android:layout_marginLeft="4dp"
         android:gravity="center_vertical"
         android:text="Likes" />
 

@@ -2,5 +2,7 @@
 <resources>
     <color name="primary_material_dark">#1da1f2</color>
     <color name="twitter_blue">#ff1da1f2</color>
+    <color name="favorited">#ff4081</color>
+    <color name="retweeted">#17bf63</color>
     <color name="medium_gray">#ffaab8c2</color>
 </resources>
