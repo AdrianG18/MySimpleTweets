@@ -19,6 +19,11 @@
     <item app:showAsAction="always" />
     <item app:showAsAction="always" />
     <item
+        android:id="@+id/miProfile"
+        android:icon="@drawable/ic_person_white_24dp"
+        android:onClick="onProfileView"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/miCompose"
         android:icon="@drawable/compose"
         android:title="Compose"

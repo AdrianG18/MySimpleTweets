@@ -88,7 +88,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 if (tweet.favorited) {
 
                     // Network request sent to the statuses/update endpoint
-                    client.unfavoriteTweet(tweet.id, new JsonHttpResponseHandler() {
+                    client.unfavoriteTweet(tweet.uid, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             Log.d("TwitterClient", response.toString());
@@ -117,7 +117,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 }
                 else {
                     // Network request sent to the statuses/update endpoint
-                    client.favoriteTweet(tweet.id, new JsonHttpResponseHandler() {
+                    client.favoriteTweet(tweet.uid, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             Log.d("TwitterClient", response.toString());

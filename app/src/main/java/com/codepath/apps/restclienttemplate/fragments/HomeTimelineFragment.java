@@ -54,10 +54,10 @@ public class HomeTimelineFragment extends TweetsListFragment {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 //                Log.d("TwitterClient", response.toString());
 
-//                tweetAdapter.clear();
-//
+                tweetAdapter.clear();
+
                 addItems(response);
-//
+
                 swipeContainer.setRefreshing(false);
 //                hideProgressBar();
             }

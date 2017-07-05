@@ -86,7 +86,6 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:background="@android:color/transparent"
-        android:tint="@android:color/darker_gray"
         app:srcCompat="@drawable/ic_vector_retweet_stroke"
         android:layout_below="@+id/tvBody"
         android:layout_toRightOf="@id/ibReply"
