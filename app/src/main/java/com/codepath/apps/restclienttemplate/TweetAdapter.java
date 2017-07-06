@@ -47,7 +47,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
     // define an interface required by the ViewHolder
     public interface TweetAdapterListener {
-        public void onItemSelected(View view, int position, boolean b);
+        void onItemSelected(View view, int position, boolean b);
     }
     // pass in the Tweets array in the constructor
     public TweetAdapter(List<Tweet> tweets, TweetAdapterListener listener) {
@@ -169,10 +169,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                 if (tweet.retweeted) {
                     tweet.retweeted = false;
                     holder.ibRetweet.setImageResource(ic_vector_retweet_stroke);
+                    tweet.retweetCount = Integer.toString(Integer.parseInt(tweet.retweetCount)+1);
+                    holder.tvRetweet.setText(tweet.retweetCount);
                 }
                 else {
                     tweet.retweeted = true;
                     holder.ibRetweet.setImageResource(ic_vector_retweet);
+                    tweet.retweetCount = Integer.toString(Integer.parseInt(tweet.retweetCount)+1);
+                    holder.tvRetweet.setText(tweet.retweetCount);
                 }
             }
         });
