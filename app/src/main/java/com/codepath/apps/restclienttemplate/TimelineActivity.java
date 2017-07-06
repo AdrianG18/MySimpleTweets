@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
 import com.codepath.apps.restclienttemplate.fragments.TweetsPagerAdapter;
@@ -31,7 +32,7 @@ import cz.msebera.android.httpclient.Header;
 import static com.codepath.apps.restclienttemplate.R.id.miActionProgress;
 import static com.codepath.apps.restclienttemplate.R.menu.timeline;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements TweetsListFragment.TweetSelectedListener {
 
     // instance variables
     TwitterClient client;
@@ -138,4 +139,10 @@ public class TimelineActivity extends AppCompatActivity {
 //        miActionProgressItem.setVisible(false);
 //    }
 
+
+    @Override
+    public void onTweetSelected(Tweet tweet) {
+        Toast.makeText(this, tweet.body, Toast.LENGTH_SHORT).show();
+
+    }
 }

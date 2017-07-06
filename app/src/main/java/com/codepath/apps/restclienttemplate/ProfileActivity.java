@@ -65,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
         ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
         tvName.setText(user.name);
 
-         tvTagline.setText(user.tagLine);
+         tvTagline.setText(user.tagline);
          tvFollowers.setText(user.followersCount + " Followers");
          tvFollowing.setText(user.followingCount + " Following");
         // load profile image with Glide
