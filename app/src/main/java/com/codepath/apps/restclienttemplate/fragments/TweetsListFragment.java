@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.TweetAdapter;
@@ -19,8 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-
-import static com.codepath.apps.restclienttemplate.R.id.swipeContainer;
 
 /**
  * Created by adrian18 on 7/3/17.
@@ -32,6 +29,7 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
     public interface TweetSelectedListener {
         // handle tweet selection
         public void onTweetSelected(Tweet tweet);
+        public void onProfileSelected(Tweet tweet);
     }
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;
@@ -96,8 +94,13 @@ public class TweetsListFragment extends Fragment implements TweetAdapter.TweetAd
     }
 
     @Override
-    public void onItemSelected(View view, int position) {
+    public void onItemSelected(View view, int position, boolean picture) {
         Tweet tweet = tweets.get(position);
-        ((TweetSelectedListener) getActivity()).onTweetSelected(tweet);
+        if(!picture) {
+            ((TweetSelectedListener) getActivity()).onTweetSelected(tweet);
+        }
+        else {
+            ((TweetSelectedListener) getActivity()).onProfileSelected(tweet);
+        }
     }
 }

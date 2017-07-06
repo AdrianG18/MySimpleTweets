@@ -47,7 +47,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
     // define an interface required by the ViewHolder
     public interface TweetAdapterListener {
-        public void onItemSelected(View view, int position);
+        public void onItemSelected(View view, int position, boolean b);
     }
     // pass in the Tweets array in the constructor
     public TweetAdapter(List<Tweet> tweets, TweetAdapterListener listener) {
@@ -71,7 +71,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     // bind the values based on the position of the element
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // get the data according to position
         final Tweet tweet = mTweets.get(position);
         int heart = (tweet.favorited) ? ic_vector_heart : ic_vector_heart_stroke;
@@ -89,6 +89,12 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
         // set on click listeners
         //TODO: set on click listener for reply
+        holder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onItemSelected(view,position,true);
+            }
+        });
         holder.ibLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +107,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                             Log.d("TwitterClient", response.toString());
                                 tweet.favorited = false;
                                 holder.ibLike.setImageResource(ic_vector_heart_stroke);
+                                tweet.favoritesCount = Integer.toString(Integer.parseInt(tweet.favoritesCount)-1);
+                                holder.tvLike.setText(tweet.favoritesCount);
                         }
                         @Override
                         public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -130,6 +138,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                             Log.d("TwitterClient", response.toString());
                             tweet.favorited = true;
                             holder.ibLike.setImageResource(ic_vector_heart);
+                            tweet.favoritesCount = Integer.toString(Integer.parseInt(tweet.favoritesCount)+1);
+                            holder.tvLike.setText(tweet.favoritesCount);
                         }
                         @Override
                         public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -169,7 +179,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
         Glide.with(context)
                 .load(tweet.user.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+                .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
                 .into(holder.ivProfileImage);
     }
 
@@ -213,7 +223,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                         // get the position of row element
                         int position = getAdapterPosition();
                         // fire the listener callback
-                        mListener.onItemSelected(view, position);
+                        mListener.onItemSelected(view, position, false);
                     }
                 }
             });

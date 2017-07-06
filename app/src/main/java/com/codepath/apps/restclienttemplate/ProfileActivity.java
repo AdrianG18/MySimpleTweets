@@ -15,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.util.TextUtils;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -26,7 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        String screenName = getIntent().getStringExtra("screen_name");
+        final String screenName = getIntent().getStringExtra("screen_name");
         // create the user fragment
         UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenName);
         // display the user timeline fragment inside the container (dynamically)
@@ -39,21 +41,41 @@ public class ProfileActivity extends AppCompatActivity {
         ft.commit();
 
         client = TwitterApp.getRestClient();
-        client.getUserInfo(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // deserialize the User object
-                try {
-                    User user = User.fromJSON(response);
-                    // set the title of the ActionBar based on the user information
-                    getSupportActionBar().setTitle("@" + user.screenName);
-                    // populate the user headline
-                    populateUserHeadline(user);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        if (TextUtils.isEmpty(screenName)) {
+            client.getUserInfo(new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    // deserialize the User object
+                    try {
+                        User user = User.fromJSON(response);
+                        // set the title of the ActionBar based on the user information
+                        getSupportActionBar().setTitle("@" + user.screenName);
+                        // populate the user headline
+                        populateUserHeadline(user);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            client.getOtherInfo(screenName, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    // deserialize the User object
+                    try {
+                        User user = User.fromJSON(response);
+                        // set the title of the ActionBar based on the user information
+                        getSupportActionBar().setTitle("@" + screenName);
+                        // populate the user headline
+                        populateUserHeadline(user);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+
+
     }
 
     public void populateUserHeadline(User user) {
@@ -70,6 +92,10 @@ public class ProfileActivity extends AppCompatActivity {
          tvFollowing.setText(user.followingCount + " Following");
         // load profile image with Glide
         Glide.with(this).load(user.profileImageUrl).into(ivProfileImage);
+        Glide.with(this)
+                .load(user.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(this, 150, 0))
+                .into(ivProfileImage);
 
 
 
