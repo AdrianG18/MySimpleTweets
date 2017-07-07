@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.codepath.apps.restclienttemplate.TwitterApp;
 import com.codepath.apps.restclienttemplate.TwitterClient;
 import com.codepath.apps.restclienttemplate.fragments.TweetsListFragment;
+import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -39,6 +40,15 @@ public class HomeTimelineFragment extends TweetsListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    public void appendTweet(Tweet tweet) {
+        tweets.add(0, tweet);
+
+        // inserted at position 0
+        tweetAdapter.notifyItemInserted(0);
+
+        rvTweets.scrollToPosition(0);
     }
 
     @Override

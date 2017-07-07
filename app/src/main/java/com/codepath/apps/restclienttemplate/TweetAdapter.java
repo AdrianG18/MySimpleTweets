@@ -76,14 +76,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         final Tweet tweet = mTweets.get(position);
         int heart = (tweet.favorited) ? ic_vector_heart : ic_vector_heart_stroke;
         int arrows = (tweet.retweeted) ? ic_vector_retweet : ic_vector_retweet_stroke;
+        final String likes = (tweet.favoritesCount.equals("0")) ? "" : tweet.favoritesCount;
+        String retweets = (tweet.retweetCount.equals("0")) ? "" : tweet.retweetCount;
 
         // populate the views according to this data
         holder.tvUsername.setText(tweet.user.name);
         holder.tvHandle.setText("@"+tweet.user.screenName);
         holder.tvBody.setText(tweet.body);
         holder.tvRelativeDate.setText(tweet.relativeDate);
-        holder.tvRetweet.setText(tweet.retweetCount);
-        holder.tvLike.setText(tweet.favoritesCount);
+        holder.tvRetweet.setText(retweets);
+        holder.tvLike.setText(likes);
         holder.ibLike.setImageResource(heart);
         holder.ibRetweet.setImageResource(arrows);
 
@@ -108,7 +110,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                                 tweet.favorited = false;
                                 holder.ibLike.setImageResource(ic_vector_heart_stroke);
                                 tweet.favoritesCount = Integer.toString(Integer.parseInt(tweet.favoritesCount)-1);
-                                holder.tvLike.setText(tweet.favoritesCount);
+                                holder.tvLike.setText(
+                                        (tweet.favoritesCount.equals("0"))? "" : tweet.favoritesCount
+                                );
                         }
                         @Override
                         public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {

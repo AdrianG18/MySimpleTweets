@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  * Created by adrian18 on 7/3/17.
  */
 
-public class TweetsPagerAdapter extends FragmentPagerAdapter {
+public class TweetsPagerAdapter extends SmartFragmentStatePagerAdapter {
 
     private String tabTitles[] = new String[] {"Home", "Mentions"};
     private Context context;
@@ -18,6 +18,7 @@ public class TweetsPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.context=context;
     }
+
     // return the total # of fragment
     @Override
     public int getCount() {
