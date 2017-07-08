@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
@@ -28,11 +29,15 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static android.support.v4.content.ContextCompat.getColor;
+import static com.codepath.apps.restclienttemplate.R.color.button_gray;
+import static com.codepath.apps.restclienttemplate.R.color.favorited;
 import static com.codepath.apps.restclienttemplate.R.drawable.ic_vector_heart;
 import static com.codepath.apps.restclienttemplate.R.drawable.ic_vector_heart_stroke;
 import static com.codepath.apps.restclienttemplate.R.drawable.ic_vector_retweet;
 import static com.codepath.apps.restclienttemplate.R.drawable.ic_vector_retweet_stroke;
 import static com.codepath.apps.restclienttemplate.R.id.etTweet;
+import static com.codepath.apps.restclienttemplate.R.id.ivImage;
 
 /**
  * Created by adrian18 on 6/26/17.
@@ -108,6 +113,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             Log.d("TwitterClient", response.toString());
                                 tweet.favorited = false;
+                                holder.tvLike.setTextColor(getColor(context,R.color.button_gray));
                                 holder.ibLike.setImageResource(ic_vector_heart_stroke);
                                 tweet.favoritesCount = Integer.toString(Integer.parseInt(tweet.favoritesCount)-1);
                                 holder.tvLike.setText(
@@ -141,6 +147,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             Log.d("TwitterClient", response.toString());
                             tweet.favorited = true;
+                            holder.tvLike.setTextColor(getColor(context,R.color.favorited));
                             holder.ibLike.setImageResource(ic_vector_heart);
                             tweet.favoritesCount = Integer.toString(Integer.parseInt(tweet.favoritesCount)+1);
                             holder.tvLike.setText(tweet.favoritesCount);
@@ -172,18 +179,31 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             public void onClick(View view) {
                 if (tweet.retweeted) {
                     tweet.retweeted = false;
+                    holder.tvLike.setTextColor(getColor(context,button_gray));
                     holder.ibRetweet.setImageResource(ic_vector_retweet_stroke);
                     tweet.retweetCount = Integer.toString(Integer.parseInt(tweet.retweetCount)+1);
                     holder.tvRetweet.setText(tweet.retweetCount);
                 }
                 else {
                     tweet.retweeted = true;
+                    holder.tvLike.setTextColor(getColor(context,R.color.retweeted));
                     holder.ibRetweet.setImageResource(ic_vector_retweet);
                     tweet.retweetCount = Integer.toString(Integer.parseInt(tweet.retweetCount)+1);
                     holder.tvRetweet.setText(tweet.retweetCount);
                 }
             }
         });
+
+        // set media image
+        if (tweet.imageUrl != null) {
+            holder.ivImage.setVisibility(View.VISIBLE);
+            Glide.with(context)
+                    .load(tweet.imageUrl)
+                    .bitmapTransform(new RoundedCornersTransformation(context,20, 0))
+                    .into(holder.ivImage);
+        } else {
+            holder.ivImage.setVisibility(View.GONE);
+        }
 
         Glide.with(context)
                 .load(tweet.user.profileImageUrl)
@@ -200,6 +220,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView ivProfileImage;
+        public ImageView ivImage;
         public TextView tvUsername;
         public TextView tvBody;
         public TextView tvHandle;
@@ -214,6 +235,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             // perform findViewById lookups
             // TODO: ButterKnife(?)
             ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
+            ivImage = (ImageView) itemView.findViewById(R.id.ivImage);
             tvUsername = (TextView) itemView.findViewById(R.id.tvUsername);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvHandle = (TextView) itemView.findViewById(R.id.tvHandle);

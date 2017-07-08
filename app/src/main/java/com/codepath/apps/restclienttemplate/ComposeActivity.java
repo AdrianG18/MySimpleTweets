@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.apps.restclienttemplate.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -21,9 +24,15 @@ import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.util.TextUtils;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import static android.graphics.Color.DKGRAY;
 import static com.codepath.apps.restclienttemplate.R.id.btnSend;
+import static com.codepath.apps.restclienttemplate.R.id.ivProfileImage;
+import static com.codepath.apps.restclienttemplate.R.id.tvFollowers;
+import static com.codepath.apps.restclienttemplate.R.id.tvFollowing;
+import static com.codepath.apps.restclienttemplate.R.id.tvTagline;
 
 
 public class ComposeActivity extends AppCompatActivity {
@@ -36,6 +45,7 @@ public class ComposeActivity extends AppCompatActivity {
     Button btnSend;
     TextView tvName;
     TextView tvScreenName;
+    ImageView ivProfileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +59,29 @@ public class ComposeActivity extends AppCompatActivity {
         btnSend = (Button) findViewById(R.id.btnSend);
         tvName = (TextView) findViewById(R.id.tvName);
         tvScreenName = (TextView) findViewById(R.id.tvScreenName);
+        ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+
 
       //  tvName.setText(user.name);
 
         etTweet.addTextChangedListener(mTextEditorWatcher);
-    }
+
+
+        client = TwitterApp.getRestClient();
+        client.getUserInfo(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // deserialize the User object
+                try {
+                    User user = User.fromJSON(response);
+                    // populate the user headline
+                    populateHeadline(user);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+    });}
+
 
     private final TextWatcher mTextEditorWatcher = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -110,6 +138,17 @@ public class ComposeActivity extends AppCompatActivity {
                 throwable.printStackTrace();
             }
         });
+
+    }
+
+    public void populateHeadline(User user) {
+        tvName.setText(user.name);
+        tvScreenName.setText("@"+user.screenName);
+        // load profile image with Glide
+        Glide.with(this)
+                .load(user.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(this,150,0))
+                .into(ivProfileImage);
 
     }
 

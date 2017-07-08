@@ -4,5 +4,5 @@
     <color name="twitter_blue">#ff1da1f2</color>
     <color name="favorited">#ff4081</color>
     <color name="retweeted">#17bf63</color>
-    <color name="medium_gray">#ffaab8c2</color>
+    <color name="button_gray">#808080</color>
 </resources>

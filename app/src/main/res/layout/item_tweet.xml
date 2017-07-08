@@ -39,6 +39,16 @@
         android:layout_below="@+id/tvUsername"
         android:layout_toEndOf="@+id/ivProfileImage" />
 
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@id/tvBody"
+        android:layout_below="@id/tvBody"
+        android:layout_marginBottom="5dp"
+        app:srcCompat="@android:color/transparent" />
+
     <TextView
         android:id="@+id/tvRelativeDate"
         android:layout_width="wrap_content"
@@ -77,7 +87,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_alignStart="@+id/tvBody"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivImage"
         android:background="@android:color/transparent"
         android:tint="@android:color/darker_gray"
         app:srcCompat="@drawable/vector_compose_fab" />
@@ -88,7 +98,7 @@
         android:layout_height="25dp"
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/ic_vector_retweet_stroke"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivImage"
         android:layout_toRightOf="@id/ibReply"
         android:layout_marginStart="50dp"/>
 
@@ -107,7 +117,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ivLine"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivImage"
         android:layout_toEndOf="@+id/ibReply"
         android:layout_marginLeft="4dp"
         android:gravity="center_vertical"

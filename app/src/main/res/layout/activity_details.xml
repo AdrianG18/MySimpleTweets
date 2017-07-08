@@ -51,12 +51,117 @@
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@id/tvBody"
+        android:layout_below="@id/tvBody"
+        android:layout_marginBottom="5dp"
+        app:srcCompat="@android:color/transparent" />
+
     <TextView
         android:id="@+id/tvCreatedAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tvBody"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivImage"
         android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/ivLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvCreatedAt"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"
+        android:paddingTop="5dp" />
+
+    <TextView
+        android:id="@+id/tvRetweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvCreatedAt"
+        android:layout_below="@+id/ivLine"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="5dp"
+        android:text="10K"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Retweets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retweets"
+        android:layout_alignBaseline="@+id/tvRetweet"
+        android:layout_alignBottom="@+id/tvRetweet"
+        android:layout_toEndOf="@+id/tvRetweet" />
+
+    <TextView
+        android:id="@+id/tvLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/Retweets"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="4dp"
+        android:layout_toEndOf="@+id/Retweets"
+        android:text="12K"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Likes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvLike"
+        android:layout_toEndOf="@+id/tvLike"
+        android:text="Likes" />
+
+    <ImageView
+        android:id="@+id/ivLine2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvRetweet"
+        android:background="@android:color/darker_gray"
+        android:paddingBottom="2dp" />
+
+    <ImageButton
+        android:id="@+id/ibReply"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="50dp"
+        android:layout_alignStart="@+id/tvBody"
+        android:layout_below="@+id/ivLine2"
+        android:background="@android:color/transparent"
+        android:tint="@android:color/darker_gray"
+        app:srcCompat="@drawable/vector_compose_fab" />
+
+    <ImageButton
+        android:id="@+id/ibRetweet"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="100dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/ic_vector_retweet_stroke"
+        android:layout_alignTop="@+id/ibReply"
+        android:layout_toEndOf="@+id/ibReply" />
+
+    <ImageButton
+        android:id="@+id/ibLike"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="100dp"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/ic_vector_heart_stroke"
+        android:layout_alignTop="@+id/ibRetweet"
+        android:layout_toEndOf="@+id/ibRetweet" />
 
 </RelativeLayout>
